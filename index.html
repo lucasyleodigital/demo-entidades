@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Web de demostració per a entitats</title>
+<meta name="description" content="Web de demostració per a entitats sense ànim de lucre, feta per Lucas y Leo Digital.">
+<meta property="og:title" content="Així podria ser la web de la vostra entitat">
+<meta property="og:description" content="Web de demostració per a entitats, feta per Lucas y Leo Digital.">
+<meta name="theme-color" content="#2340a8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='6' width='28' height='20' rx='4' fill='%232340a8'/%3E%3Ccircle cx='22' cy='18' r='5' fill='none' stroke='%23d4322c' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<style>
+@font-face { font-family: "Archivo"; src: url(fonts/archivo-latin.woff2) format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-display: swap; }
+@font-face { font-family: "Courier Prime"; src: url(fonts/courierprime-400.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Courier Prime"; src: url(fonts/courierprime-700.woff2) format("woff2"); font-weight: 700; font-display: swap; }
+
+/* Forma: targetes 14px, botons 10px, camps sense caixa (línia de punts). */
+:root {
+  --cobalt: #2340a8;
+  --cobalt-deep: #172d78;
+  --cobalt-ink: #c9d4f7;
+  --paper: #f7f8fa;
+  --ground: #eef1f4;
+  --ink: #14171c;
+  --ink-2: #4a5160;
+  --line: #cdd3dc;
+  --stamp: #d4322c;
+  --stamp-text: #a8231d;
+  --muted: #5d6677;
+  --quota: #ffd23f;
+  --sans: "Archivo", system-ui, sans-serif;
+  --type: "Courier Prime", "Courier New", monospace;
+  --r-card: 14px;
+  --r-btn: 10px;
+  --max: 1180px;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--ground); color: var(--ink); font: 400 18px/1.6 var(--sans); font-stretch: 100%; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--quota); color: var(--ink); }
+:focus-visible { outline: 3px solid var(--quota); outline-offset: 3px; border-radius: 6px; }
+input, textarea, select { caret-color: var(--stamp); }
+html { scrollbar-color: var(--cobalt) var(--ground); }
+a { color: inherit; text-underline-offset: .2em; text-decoration-thickness: 1.5px; }
+h1, h2, h3 { margin: 0; font-family: var(--sans); font-weight: 800; font-stretch: 112%; letter-spacing: -.025em; line-height: 1.04; text-wrap: balance; }
+h2 { font-size: clamp(34px, 4.4vw, 56px); }
+p { margin: 0; text-wrap: pretty; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: 12px; top: -60px; z-index: 50; background: var(--paper); padding: 10px 14px; border-radius: var(--r-btn); }
+.skip:focus { top: 12px; }
+i.ph { font-size: 1.15em; line-height: 1; }
+
+/* Botons */
+.btn { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; font: 700 17px/1 var(--sans); font-stretch: 105%; text-decoration: none; padding: 16px 22px; border-radius: var(--r-btn); border: 2px solid transparent; cursor: pointer; transition: translate .2s var(--ease), background-color .2s, box-shadow .2s; }
+.btn:hover { translate: 0 -2px; }
+.btn:active { translate: 0 1px; }
+.btn-quota { background: var(--quota); color: var(--ink); box-shadow: 0 10px 24px -12px rgba(0, 0, 0, .4); }
+.btn-quota:hover { background: #ffdb63; }
+.btn-line { border-color: currentColor; color: inherit; background: transparent; }
+.btn-cobalt { background: var(--cobalt); color: #fff; }
+.btn-cobalt:hover { background: var(--cobalt-deep); }
+.btn-stamp { background: var(--stamp); color: #fff; }
+.btn-stamp:hover { background: #b9271f; }
+.btn-sm { padding: 11px 16px; font-size: 15px; }
+
+/* Franja demo */
+.demo-bar { background: var(--ink); color: #e9ecf1; font-size: 14px; }
+.demo-bar .wrap { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 16px; padding-top: 9px; padding-bottom: 9px; text-align: center; }
+.demo-bar a { color: var(--quota); font-weight: 700; white-space: nowrap; }
+
+/* Capçalera */
+.top { position: sticky; top: 0; z-index: 30; background: rgba(238, 241, 244, .94); backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--line); }
+.top .wrap { height: 68px; display: flex; align-items: center; gap: 20px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; }
+.brand-mark { width: 46px; height: 32px; border-radius: 6px; background: var(--cobalt); color: #fff; display: grid; place-items: center; font: 800 13px/1 var(--sans); font-stretch: 125%; letter-spacing: .04em; flex: none; position: relative; }
+.brand-mark::after { content: ""; position: absolute; right: -5px; bottom: -5px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--stamp); background: var(--ground); }
+.brand-name { font-weight: 700; font-stretch: 105%; font-size: 16px; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 30ch; }
+.nav { margin-left: auto; display: flex; align-items: center; gap: 2px; }
+.nav a { text-decoration: none; font-size: 15px; font-weight: 500; color: var(--ink-2); padding: 8px 10px; border-radius: 8px; }
+.nav a:hover { color: var(--ink); background: #e1e6ee; }
+.lang { display: flex; margin-left: 8px; border: 1.5px solid var(--line); border-radius: var(--r-btn); overflow: hidden; }
+.lang button { font: 700 13px var(--sans); border: 0; background: transparent; color: var(--ink-2); padding: 7px 10px; cursor: pointer; }
+.lang button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.menu-btn { display: none; margin-left: auto; border: 1.5px solid var(--line); background: transparent; border-radius: var(--r-btn); padding: 8px 10px; font-size: 20px; cursor: pointer; color: var(--ink); }
+@media (max-width: 1060px) {
+  .menu-btn { display: inline-flex; }
+  .top .cta-head { display: none; }
+  .nav { display: none; position: absolute; left: 0; right: 0; top: 68px; flex-direction: column; align-items: stretch; background: var(--ground); border-bottom: 1px solid var(--line); padding: 8px 24px 20px; }
+  .nav.open { display: flex; }
+  .nav a { font-size: 18px; padding: 12px 6px; }
+  .lang { align-self: flex-start; margin: 12px 0 0; }
+}
+
+/* Hero */
+.hero { background: var(--cobalt); color: #fff; overflow: hidden; }
+.hero .wrap { display: grid; grid-template-columns: 1fr 1.05fr; gap: 56px; align-items: center; padding-top: 72px; padding-bottom: 96px; min-height: min(calc(100dvh - 110px), 820px); }
+.hero h1 { font-size: var(--h1, clamp(44px, 6.2vw, 84px)); margin-bottom: 24px; overflow-wrap: break-word; hyphens: auto; }
+.hero h1.mid { --h1: clamp(36px, 4.4vw, 60px); }
+.hero h1.long { --h1: clamp(30px, 3.2vw, 44px); }
+.hero .lead { font-size: 21px; line-height: 1.5; color: var(--cobalt-ink); max-width: 30ch; margin-bottom: 34px; }
+.hero .actions { display: flex; flex-wrap: wrap; gap: 14px; }
+.carnet-wrap { justify-self: center; width: min(560px, 100%); }
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 44px; padding-top: 44px; padding-bottom: 64px; min-height: 0; }
+  .hero .lead { font-size: 19px; }
+}
+
+/* El carnet */
+.carnet { position: relative; aspect-ratio: 1.586; background: var(--paper); color: var(--ink); border-radius: 16px; rotate: -3deg; box-shadow: 0 2px 0 rgba(255,255,255,.6) inset, 0 40px 70px -30px rgba(0, 0, 0, .45), 0 10px 22px -10px rgba(0, 0, 0, .3); display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; container-type: inline-size; }
+.carnet::before { content: ""; position: absolute; top: 12px; left: 50%; width: 54px; height: 9px; margin-left: -27px; border-radius: 9px; background: var(--cobalt); box-shadow: inset 0 2px 3px rgba(0,0,0,.35); z-index: 2; }
+.c-band { background: var(--cobalt-deep); color: #fff; display: flex; justify-content: space-between; align-items: end; padding: 30px 6cqw 12px; }
+.c-band b { font-weight: 800; font-stretch: 125%; font-size: max(11px, 2.5cqw); letter-spacing: .16em; }
+.c-band span { font-family: var(--type); font-size: max(12px, 2.7cqw); color: var(--quota); }
+.c-body { display: grid; grid-template-columns: 24cqw 1fr; gap: 5cqw; padding: 4.5cqw 6cqw 0; }
+.c-photo { aspect-ratio: 3 / 4; border: 2px dashed #9aa3b2; border-radius: 6px; display: grid; place-items: center; color: var(--muted); font-size: max(10px, 2.2cqw); text-align: center; line-height: 1.2; }
+.c-photo i { display: block; font-size: 7cqw; margin-bottom: 4px; }
+.c-fields { display: grid; gap: 2.2cqw; align-content: start; min-width: 0; }
+.c-field small { display: block; font-size: max(9px, 1.9cqw); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.c-field .v { display: block; font-family: var(--type); font-size: max(12px, 3cqw); border-bottom: 1.5px dotted var(--muted); padding-bottom: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.c-field .v.org { font-family: var(--sans); font-weight: 800; font-stretch: 108%; font-size: max(13px, 3.6cqw); letter-spacing: -.01em; white-space: normal; line-height: 1.12; border: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.c-quota { display: flex; align-items: center; gap: 2cqw; padding: 3.6cqw 6cqw 4.5cqw; }
+.c-quota small { font-size: max(9px, 1.9cqw); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin-right: 1cqw; }
+.c-box { width: 10cqw; height: 7cqw; border: 1.5px solid #9aa3b2; border-radius: 3px; display: grid; place-items: center; font-family: var(--type); font-size: max(9px, 2cqw); color: var(--muted); position: relative; }
+.c-box.paid::after { content: attr(data-paid); position: absolute; inset: -3px; background: var(--quota); color: var(--ink); font: 700 max(8px, 1.8cqw)/1 var(--sans); font-stretch: 112%; letter-spacing: .06em; display: grid; place-items: center; border-radius: 2px; rotate: -4deg; box-shadow: 0 2px 4px rgba(0,0,0,.18); }
+@media (max-width: 600px) { .carnet { aspect-ratio: auto; } }
+.stamp { position: absolute; right: -3cqw; bottom: 1cqw; width: 31cqw; aspect-ratio: 1; color: var(--stamp); mix-blend-mode: multiply; rotate: -14deg; opacity: .9; pointer-events: none; }
+.stamp svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.stamp text { font-family: var(--sans); font-weight: 800; fill: currentColor; }
+
+/* Moment de càrrega: el carnet arriba i el segell cau una vegada */
+@media (prefers-reduced-motion: no-preference) {
+  .carnet { animation: deal .9s var(--ease) both; }
+  .carnet .stamp { animation: press .55s var(--ease) .75s both; }
+  .carnet.thud { animation: deal .9s var(--ease) both, thud .22s ease-out 1.05s; }
+}
+@keyframes deal { from { translate: 0 40px; rotate: 4deg; opacity: 0; } to { translate: 0 0; rotate: -3deg; opacity: 1; } }
+@keyframes press { 0% { scale: 1.9; opacity: 0; filter: blur(8px); } 70% { scale: .96; opacity: .95; filter: blur(0); } 100% { scale: 1; opacity: .9; } }
+@keyframes thud { 0% { translate: 0 0; } 40% { translate: 0 3px; } 100% { translate: 0 0; } }
+
+/* Seccions */
+.sec { padding: 112px 0; }
+.sec-head { max-width: 62ch; margin-bottom: 48px; }
+.sec-head p { margin-top: 16px; font-size: 19px; color: var(--ink-2); }
+@media (max-width: 760px) { .sec { padding: 76px 0; } .sec-head { margin-bottom: 36px; } }
+
+.demo-note { display: flex; gap: 10px; align-items: flex-start; border: 1.5px dashed #a7b0be; border-radius: var(--r-card); padding: 12px 16px; font-size: 15px; color: var(--ink-2); max-width: 62ch; }
+.demo-note i { margin-top: 3px; color: var(--cobalt); }
+
+/* Qui som */
+.about { display: grid; grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: start; }
+.about h2 { margin-bottom: 26px; }
+.about .text p { font-size: 20px; color: var(--ink-2); max-width: 52ch; }
+.about .text p + p { margin-top: 18px; }
+.about .demo-note { margin-top: 28px; }
+.fitxa { background: var(--paper); border-radius: var(--r-card); padding: 34px 34px 30px; rotate: 1.2deg; box-shadow: 0 30px 50px -34px rgba(20, 30, 70, .55), 0 6px 14px -8px rgba(20, 30, 70, .25); background-image: linear-gradient(transparent 0 63px, #e7a6a3 63px 65px, transparent 65px), repeating-linear-gradient(transparent 0 37px, #d6dce6 37px 38px); background-position: 0 0, 0 26px; }
+.fitxa h3 { font-size: 15px; font-stretch: 125%; letter-spacing: .14em; text-transform: uppercase; color: var(--cobalt); margin-bottom: 18px; line-height: 1.2; }
+.fitxa ol { list-style: none; margin: 0; padding: 0; counter-reset: v; }
+.fitxa li { counter-increment: v; display: grid; grid-template-columns: 34px 1fr; gap: 6px; padding: 8px 0 14px; }
+.fitxa li::before { content: counter(v) "."; font-family: var(--type); font-weight: 700; color: var(--stamp-text); font-size: 20px; line-height: 1.5; }
+.fitxa b { display: block; font-size: 21px; font-weight: 800; font-stretch: 108%; }
+.fitxa span { display: block; font-family: var(--type); font-size: 16px; color: var(--ink-2); line-height: 1.55; }
+@media (max-width: 900px) { .about { grid-template-columns: 1fr; gap: 44px; } .fitxa { rotate: 0deg; } }
+
+/* Agenda: tiquets */
+.agenda { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.now { display: flex; align-items: center; gap: 12px; font-family: var(--type); font-size: 16px; color: var(--ink-2); margin-bottom: 22px; }
+.now::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--stamp); box-shadow: 0 0 0 5px rgba(212, 50, 44, .16); }
+.now::after { content: ""; flex: 1; height: 2px; background: linear-gradient(90deg, var(--stamp), var(--line) 40%); }
+.tickets { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.ticket { display: grid; grid-template-rows: auto 1fr; background: var(--ground); border-radius: var(--r-card); overflow: hidden; position: relative; box-shadow: 0 1px 0 var(--line); }
+.t-stub { background: var(--cobalt); color: #fff; padding: 18px 20px 20px; display: flex; align-items: baseline; gap: 10px; position: relative; }
+.t-stub .d { font-size: 54px; font-weight: 800; font-stretch: 112%; line-height: .9; }
+.t-stub .m { font-weight: 700; font-stretch: 112%; text-transform: uppercase; letter-spacing: .1em; font-size: 14px; }
+.t-meta .in { font-family: var(--type); color: var(--stamp-text); }
+.t-stub::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: -1px; border-bottom: 2px dashed var(--ground); }
+.ticket::before, .ticket::after { content: ""; position: absolute; top: calc(var(--stub, 92px) - 9px); width: 18px; height: 18px; border-radius: 50%; background: var(--paper); z-index: 1; }
+.ticket::before { left: -9px; } .ticket::after { right: -9px; }
+.t-body { padding: 22px 20px 20px; display: flex; flex-direction: column; gap: 12px; }
+.t-body h3 { font-size: 21px; font-stretch: 104%; letter-spacing: -.01em; line-height: 1.18; }
+.t-meta { display: grid; gap: 4px; font-size: 15px; color: var(--ink-2); }
+.t-meta span { display: flex; align-items: center; gap: 8px; }
+.t-body .btn { margin-top: auto; align-self: flex-start; }
+.ticket:first-child .t-stub { background: var(--stamp); }
+@media (max-width: 1000px) {
+  .tickets { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(260px, 78%); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 14px; margin: 0 -24px; padding-left: 24px; padding-right: 24px; scroll-padding: 24px; }
+  .ticket { scroll-snap-align: start; }
+}
+
+/* Participa: cupons apilats */
+.join { background: var(--cobalt); color: #fff; }
+.join-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 64px; align-items: start; }
+.join-intro { position: sticky; top: 120px; }
+.join-intro h2 { margin-bottom: 20px; }
+.join-intro p { color: var(--cobalt-ink); font-size: 19px; max-width: 34ch; }
+.stack { display: grid; gap: 0; padding-bottom: 60px; }
+.coupon { position: sticky; top: calc(110px + var(--i) * 30px); margin-bottom: clamp(120px, 18vh, 190px); background: var(--paper); color: var(--ink); border-radius: var(--r-card); display: grid; grid-template-columns: 112px 1fr; overflow: hidden; rotate: var(--rot); box-shadow: 0 30px 60px -28px rgba(0, 0, 0, .45), 0 8px 18px -10px rgba(0, 0, 0, .3); }
+.coupon:last-child { margin-bottom: 0; }
+.cp-stub { background: var(--tint); display: grid; place-items: center; position: relative; border-right: 2px dashed rgba(20, 23, 28, .25); }
+.cp-stub i { font-size: 46px; color: var(--ink); }
+.cp-body { padding: 28px 30px 30px; }
+.cp-body h3 { font-size: 30px; margin-bottom: 10px; }
+.cp-body p { color: var(--ink-2); font-size: 17px; margin-bottom: 22px; max-width: 40ch; }
+@media (max-width: 900px) {
+  .join-grid { grid-template-columns: 1fr; gap: 40px; }
+  .join-intro { position: static; }
+  .coupon { top: calc(84px + var(--i) * 18px); grid-template-columns: 76px 1fr; margin-bottom: clamp(90px, 12vh, 130px); rotate: 0deg; }
+  .cp-stub i { font-size: 34px; }
+  .cp-body { padding: 22px 20px 24px; }
+  .cp-body h3 { font-size: 25px; }
+}
+
+/* Butlleta d'inscripció */
+.butlleta-sec { background: var(--cobalt); padding: 0 0 112px; }
+.butlleta { position: relative; background: var(--paper); border-radius: var(--r-card); padding: 48px 52px 44px; max-width: 900px; margin: 0 auto; box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .5); }
+.butlleta h2 { font-size: clamp(30px, 3.4vw, 42px); margin-bottom: 10px; }
+.butlleta > p { color: var(--ink-2); margin-bottom: 30px; max-width: 56ch; }
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 36px; }
+.form .full { grid-column: 1 / -1; }
+.field label { display: block; font-size: 14px; font-weight: 700; letter-spacing: .02em; color: var(--ink-2); margin-bottom: 6px; }
+.field input, .field select, .field textarea { width: 100%; font: 400 19px/1.4 var(--type); color: var(--ink); background: transparent; border: 0; border-bottom: 2px dotted #7d8697; border-radius: 0; padding: 6px 2px 8px; }
+.field textarea { min-height: 90px; resize: vertical; background-image: repeating-linear-gradient(transparent 0 33px, #d6dce6 33px 34px); line-height: 34px; padding-top: 0; }
+.field select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: calc(100% - 14px) 55%, calc(100% - 8px) 55%; background-size: 6px 6px; background-repeat: no-repeat; cursor: pointer; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-bottom: 2px solid var(--cobalt); background-color: rgba(35, 64, 168, .05); }
+.field [aria-invalid="true"] { border-bottom-color: var(--stamp); }
+.field .err { display: none; color: #a8231d; font-size: 14px; margin-top: 6px; }
+.field [aria-invalid="true"] + .err { display: block; }
+.check { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--ink-2); }
+.check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--cobalt); flex: none; }
+.form-foot { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; }
+.form-msg { font-size: 15px; color: var(--ink-2); max-width: 46ch; }
+.form-msg.bad { color: #a8231d; }
+.butlleta .stamp { right: 40px; top: 30px; bottom: auto; width: 150px; opacity: 0; }
+.butlleta.sent .stamp { opacity: .9; }
+@media (prefers-reduced-motion: no-preference) { .butlleta.sent .stamp { animation: press .5s var(--ease) both; } }
+@media (max-width: 760px) {
+  .butlleta { padding: 30px 22px 28px; }
+  .form { grid-template-columns: 1fr; gap: 22px; }
+  .butlleta .stamp { width: 110px; right: 14px; top: 14px; }
+  .butlleta-sec { padding-bottom: 76px; }
+}
+
+/* Notícies */
+.news { display: grid; grid-template-columns: 1.25fr 1fr; gap: 28px; }
+.n-feat { background: var(--cobalt-deep); color: #fff; border-radius: var(--r-card); padding: 40px; display: flex; flex-direction: column; justify-content: space-between; min-height: 380px; position: relative; overflow: hidden; }
+.n-feat .big { font-size: clamp(90px, 11vw, 150px); font-weight: 800; font-stretch: 125%; line-height: .8; color: var(--quota); letter-spacing: -.04em; }
+.n-feat time { font-family: var(--type); color: var(--cobalt-ink); font-size: 16px; }
+.n-feat h3 { font-size: clamp(26px, 2.6vw, 34px); margin: 10px 0 12px; }
+.n-feat p { color: var(--cobalt-ink); max-width: 44ch; }
+.n-list { display: grid; align-content: start; }
+.n-item { padding: 26px 0; border-bottom: 1.5px solid var(--line); }
+.n-item:first-child { padding-top: 6px; }
+.n-item time { font-family: var(--type); color: var(--stamp-text); font-size: 15px; }
+.n-item h3 { font-size: 23px; font-stretch: 104%; margin: 6px 0 8px; line-height: 1.2; }
+.n-item p { color: var(--ink-2); font-size: 17px; }
+@media (max-width: 900px) { .news { grid-template-columns: 1fr; } .n-feat { min-height: 300px; padding: 30px 26px; } }
+
+/* Galeria: àlbum */
+.album { background: var(--paper); border-top: 1px solid var(--line); }
+.photos { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 120px; gap: 22px; }
+.ph-slot { position: relative; background: #e4e8ee; border-radius: 4px; display: grid; place-items: center; text-align: center; color: #6b7384; font-size: 15px; padding: 14px; rotate: var(--rot, 0deg); box-shadow: 0 14px 26px -18px rgba(20, 30, 70, .5); }
+.ph-slot i { display: block; font-size: 30px; margin: 0 auto 6px; color: var(--cobalt); }
+.ph-slot::before, .ph-slot::after { content: ""; position: absolute; width: 26px; height: 26px; background: linear-gradient(135deg, var(--ink) 50%, transparent 50%); }
+.ph-slot::before { left: -6px; top: -6px; }
+.ph-slot::after { right: -6px; bottom: -6px; rotate: 180deg; }
+.ps1 { grid-column: span 3; grid-row: span 3; --rot: -1deg; }
+.ps2 { grid-column: span 3; grid-row: span 2; --rot: 1.2deg; }
+.ps3 { grid-column: span 2; grid-row: span 2; --rot: .6deg; }
+.ps4 { grid-column: span 1; grid-row: span 2; --rot: -1.4deg; }
+.ps5 { grid-column: span 3; grid-row: span 1; --rot: .8deg; }
+@media (max-width: 760px) { .photos { grid-template-columns: 1fr 1fr; grid-auto-rows: 110px; gap: 16px; } .ps1 { grid-column: span 2; grid-row: span 2; } .ps2, .ps5 { grid-column: span 2; grid-row: span 1; } .ps3, .ps4 { grid-column: span 1; grid-row: span 2; } }
+
+/* Transparència */
+.docs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.doc { position: relative; background: var(--paper); border-radius: 4px var(--r-card) var(--r-card) var(--r-card); padding: 26px 18px 20px; display: grid; gap: 6px; box-shadow: 0 12px 24px -18px rgba(20, 30, 70, .5); }
+.doc::before { content: ""; position: absolute; top: -12px; left: 0; width: 46%; height: 14px; background: var(--paper); border-radius: 8px 8px 0 0; }
+.doc i { font-size: 28px; color: var(--cobalt); }
+.doc b { font-size: 17px; font-weight: 700; line-height: 1.25; }
+.doc small { font-family: var(--type); color: var(--ink-2); font-size: 14px; }
+@media (max-width: 900px) { .docs { grid-template-columns: repeat(2, 1fr); row-gap: 28px; } }
+
+/* Contacte */
+.contact { position: relative; border-radius: var(--r-card); overflow: hidden; min-height: 460px; background: #dfe4ea; }
+.contact iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: saturate(.75) contrast(1.02); }
+.c-card { position: relative; margin: 32px; width: min(400px, calc(100% - 64px)); background: var(--paper); border-radius: var(--r-card); padding: 30px; box-shadow: 0 30px 60px -30px rgba(10, 20, 60, .6); display: grid; gap: 18px; }
+.c-card h3 { font-size: 26px; }
+.c-row { display: grid; grid-template-columns: 30px 1fr; gap: 8px; }
+.c-row i { font-size: 22px; color: var(--stamp); margin-top: 2px; }
+.c-row b { display: block; font-size: 15px; }
+.c-row span { font-family: var(--type); font-size: 16px; color: var(--ink-2); }
+@media (max-width: 760px) { .contact { min-height: 0; display: grid; } .contact iframe { position: relative; height: 300px; order: 2; } .c-card { margin: 0; width: 100%; border-radius: 0; box-shadow: none; } }
+
+/* Tancament */
+.close { background: var(--cobalt-deep); color: #fff; padding: 104px 0; }
+.close .wrap { display: grid; grid-template-columns: 1.2fr .8fr; gap: 48px; align-items: end; }
+.close h2 { margin-bottom: 18px; }
+.close p { color: var(--cobalt-ink); font-size: 19px; max-width: 48ch; }
+.close ul { list-style: none; padding: 0; margin: 26px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+.close li { display: flex; gap: 10px; align-items: center; font-size: 17px; }
+.close li i { color: var(--quota); }
+.close .btn { justify-self: start; }
+@media (max-width: 900px) { .close .wrap { grid-template-columns: 1fr; } .close ul { grid-template-columns: 1fr; } .close { padding: 76px 0; } }
+
+footer { background: var(--ink); color: #b7bdc8; font-size: 14px; padding: 26px 0 34px; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; }
+footer nav { display: flex; gap: 18px; }
+footer a { color: #e3e7ee; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* Efectes de scroll (només on el navegador els suporta; sense ells, tot es veu igual) */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .carnet-wrap { animation: lift linear both; animation-timeline: scroll(root); animation-range: 0 80vh; }
+    @keyframes lift { to { translate: 0 -70px; rotate: -5deg; scale: .94; } }
+    .ticket { animation: tear linear both; animation-timeline: view(); animation-range: entry 5% entry 80%; }
+    @keyframes tear { from { clip-path: inset(0 100% 0 0 round 14px); } to { clip-path: inset(0 0 0 0 round 14px); } }
+    .coupon { animation: settle linear both; animation-timeline: view(); animation-range: entry 0% entry 90%; }
+    @keyframes settle { from { translate: 0 90px; scale: .94; } to { translate: 0 0; scale: 1; } }
+    .ph-slot { animation: drop linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+    @keyframes drop { from { translate: 0 40px; opacity: 0; } to { translate: 0 0; opacity: 1; } }
+    .n-feat .big { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
+    @keyframes rise { from { translate: 0 60%; } to { translate: 0 0; } }
+  }
+}
+</style>
+</head>
+<body>
+<!--
+THESIS: La web és el carnet de soci de l'entitat: el seu nom imprès en un carnet que el visitant pot fer seu. Refusa la web d'ONG estàndard (foto de mans, titular i botó de donar).
+OWN-WORLD: cartolina cobalt, paper de carnet fred, tinta negra, segell de goma vermell, adhesius de quota grocs, perforats i camps escrits a màquina (Archivo eixamplada + Courier Prime).
+STORY: la junta veu el nom de la seva entitat imprès en un carnet, recorre l'agenda en tiquets i els cupons per participar, omple la butlleta i arriba a l'oferta de tenir aquesta web.
+FIRST VIEWPORT: camp cobalt; a l'esquerra el nom de l'entitat gran en blanc, una entrada de 16 paraules, botó groc "Fes-te soci" i botó de línia cap a l'agenda; a la dreta el carnet inclinat (~45% d'amplada) amb el segell vermell que cau en carregar.
+FORM: Carnet de soci, candidat 3 de 7, seed:393937d2390b1380. Raises: un element mana a cada secció; el segell cau una sola vegada; l'agenda marca avui; buit generós al voltant del carnet; cada secció és un moment fix.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->
+<a class="skip" href="#contingut" data-t="skip">Ves al contingut</a>
+
+<div class="demo-bar" role="note">
+  <div class="wrap">
+    <span id="demoText"></span>
+    <a href="https://lucasyleodigital.com" target="_blank" rel="noopener" data-t="wantSite">Vull una web així</a>
+  </div>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inici">
+      <span class="brand-mark" id="mark" aria-hidden="true">AE</span>
+      <span class="brand-name" data-name></span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav"><i class="ph ph-list" aria-hidden="true"></i><span class="sr" data-t="menu">Menú</span></button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#qui-som" data-t="navAbout">Qui som</a>
+      <a href="#agenda" data-t="navEvents">Agenda</a>
+      <a href="#participa" data-t="navJoin">Participa</a>
+      <a href="#noticies" data-t="navNews">Notícies</a>
+      <a href="#transparencia" data-t="navDocs">Transparència</a>
+      <a href="#contacte" data-t="navContact">Contacte</a>
+      <div class="lang" role="group" aria-label="Idioma">
+        <button type="button" data-lang="ca" aria-pressed="true">CA</button>
+        <button type="button" data-lang="es" aria-pressed="false">ES</button>
+      </div>
+    </nav>
+    <a class="btn btn-cobalt btn-sm cta-head" href="#butlleta" data-t="join">Fes-te soci</a>
+  </div>
+</header>
+
+<main id="contingut">
+  <section class="hero" id="inici">
+    <div class="wrap">
+      <div>
+        <h1 id="h1" data-name></h1>
+        <p class="lead" data-t="lead"></p>
+        <div class="actions">
+          <a class="btn btn-quota" href="#butlleta"><span data-t="join">Fes-te soci</span><i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          <a class="btn btn-line" href="#agenda" data-t="seeAgenda">Veure l'agenda</a>
+        </div>
+      </div>
+      <div class="carnet-wrap">
+        <div class="carnet" id="carnet" role="img" aria-labelledby="carnetLabel">
+          <span class="sr" id="carnetLabel"></span>
+          <div class="c-band"><b data-t="cardTitle">CARNET DE SOCI</b><span id="cardYear"></span></div>
+          <div class="c-body">
+            <div class="c-photo"><span><i class="ph ph-user" aria-hidden="true"></i><span data-t="photo">Foto</span></span></div>
+            <div class="c-fields">
+              <div class="c-field"><small data-t="fOrg">Entitat</small><span class="v org" data-name></span></div>
+              <div class="c-field"><small data-t="fMember">Nom del soci</small><span class="v" data-t="yourName">El teu nom</span></div>
+              <div class="c-field"><small data-t="fSince">Data d'alta</small><span class="v" id="cardDate"></span></div>
+            </div>
+          </div>
+          <div class="c-quota"><small data-t="quota">Quota</small><span class="c-box paid" id="q1"></span><span class="c-box" id="q2"></span><span class="c-box" id="q3"></span><span class="c-box" id="q4"></span></div>
+          <div class="stamp" aria-hidden="true">
+            <svg viewBox="0 0 200 200">
+              <defs><path id="ring" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
+              <circle cx="100" cy="100" r="94" fill="none" stroke="currentColor" stroke-width="6"/>
+              <circle cx="100" cy="100" r="58" fill="none" stroke="currentColor" stroke-width="3"/>
+              <text font-size="17" letter-spacing="3"><textPath href="#ring" data-t="stampRing" textLength="452">SEGELL DE L'ENTITAT · GAVÀ ·</textPath></text>
+              <text class="initials" x="100" y="117" font-size="46" text-anchor="middle">AE</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="qui-som" aria-labelledby="t-about">
+    <div class="wrap about">
+      <div class="text">
+        <h2 id="t-about" data-t="aboutTitle"></h2>
+        <p data-t="about1"></p>
+        <p data-t="about2"></p>
+        <div class="demo-note"><i class="ph ph-info" aria-hidden="true"></i><span data-t="aboutNote"></span></div>
+      </div>
+      <div class="fitxa">
+        <h3 data-t="valuesTitle"></h3>
+        <ol>
+          <li><div><b data-t="v1t"></b><span data-t="v1d"></span></div></li>
+          <li><div><b data-t="v2t"></b><span data-t="v2d"></span></div></li>
+          <li><div><b data-t="v3t"></b><span data-t="v3d"></span></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec agenda" id="agenda" aria-labelledby="t-agenda">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="t-agenda" data-t="agendaTitle"></h2>
+        <p data-t="agendaLead"></p>
+      </div>
+      <p class="now" id="now"></p>
+      <div class="tickets" id="tickets"></div>
+    </div>
+  </section>
+
+  <section class="sec join" id="participa" aria-labelledby="t-join">
+    <div class="wrap join-grid">
+      <div class="join-intro">
+        <h2 id="t-join" data-t="joinTitle"></h2>
+        <p data-t="joinLead"></p>
+      </div>
+      <div class="stack">
+        <article class="coupon" style="--i:0; --rot:-1.5deg; --tint:#ffd23f">
+          <div class="cp-stub"><i class="ph ph-identification-card" aria-hidden="true"></i></div>
+          <div class="cp-body"><h3 data-t="j1t"></h3><p data-t="j1d"></p><a class="btn btn-cobalt btn-sm" href="#butlleta" data-choice="soci" data-t="j1b"></a></div>
+        </article>
+        <article class="coupon" style="--i:1; --rot:1deg; --tint:#c9d4f7">
+          <div class="cp-stub"><i class="ph ph-hand-heart" aria-hidden="true"></i></div>
+          <div class="cp-body"><h3 data-t="j2t"></h3><p data-t="j2d"></p><a class="btn btn-cobalt btn-sm" href="#butlleta" data-choice="voluntari" data-t="j2b"></a></div>
+        </article>
+        <article class="coupon" style="--i:2; --rot:-.6deg; --tint:#f4b9b5">
+          <div class="cp-stub"><i class="ph ph-heart" aria-hidden="true"></i></div>
+          <div class="cp-body"><h3 data-t="j3t"></h3><p data-t="j3d"></p><a class="btn btn-cobalt btn-sm" href="#butlleta" data-choice="donatiu" data-t="j3b"></a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="butlleta-sec" aria-labelledby="t-form">
+    <div class="wrap">
+      <div class="butlleta" id="butlleta">
+        <h2 id="t-form" data-t="formTitle"></h2>
+        <p data-t="formLead"></p>
+        <form class="form" id="form" novalidate>
+          <div class="field"><label for="f-name" data-t="fName"></label><input id="f-name" name="name" autocomplete="name"><span class="err" data-t="eName"></span></div>
+          <div class="field"><label for="f-mail" data-t="fMail"></label><input id="f-mail" name="email" type="email" autocomplete="email"><span class="err" data-t="eMail"></span></div>
+          <div class="field"><label for="f-phone" data-t="fPhone"></label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="f-type" data-t="fType"></label>
+            <select id="f-type" name="type">
+              <option value="soci" data-t="oSoci"></option>
+              <option value="voluntari" data-t="oVol"></option>
+              <option value="donatiu" data-t="oDon"></option>
+              <option value="altres" data-t="oOther"></option>
+            </select></div>
+          <div class="field full"><label for="f-msg" data-t="fMsg"></label><textarea id="f-msg" name="message" rows="3"></textarea></div>
+          <label class="check full"><input type="checkbox" id="f-ok"><span data-t="fConsent"></span></label>
+          <div class="form-foot full">
+            <button class="btn btn-stamp" type="submit"><span data-t="fSend"></span><i class="ph ph-paper-plane-tilt" aria-hidden="true"></i></button>
+            <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+        <div class="stamp" aria-hidden="true">
+          <svg viewBox="0 0 200 200">
+            <defs><path id="ring2" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
+            <circle cx="100" cy="100" r="94" fill="none" stroke="currentColor" stroke-width="6"/>
+            <circle cx="100" cy="100" r="58" fill="none" stroke="currentColor" stroke-width="3"/>
+            <text font-size="17" letter-spacing="3"><textPath href="#ring2" data-t="stampRing2" textLength="452">BUTLLETA DE DEMOSTRACIÓ ·</textPath></text>
+            <text x="100" y="112" font-size="30" text-anchor="middle" data-t="received">REBUDA</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="noticies" aria-labelledby="t-news">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="t-news" data-t="newsTitle"></h2></div>
+      <div class="news">
+        <article class="n-feat" id="nFeat">
+          <div class="big" aria-hidden="true"></div>
+          <div><time></time><h3></h3><p></p></div>
+        </article>
+        <div class="n-list" id="nList"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec album" aria-labelledby="t-gal">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="t-gal" data-t="galTitle"></h2><p data-t="galLead"></p></div>
+      <div class="photos">
+        <div class="ph-slot ps1"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph1"></span></span></div>
+        <div class="ph-slot ps2"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph2"></span></span></div>
+        <div class="ph-slot ps3"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph3"></span></span></div>
+        <div class="ph-slot ps4"><span><i class="ph ph-image" aria-hidden="true"></i></span></div>
+        <div class="ph-slot ps5"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph5"></span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="transparencia" aria-labelledby="t-docs">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="t-docs" data-t="docsTitle"></h2><p data-t="docsLead"></p></div>
+      <div class="docs">
+        <div class="doc"><i class="ph ph-file-text" aria-hidden="true"></i><b data-t="d1"></b><small>PDF</small></div>
+        <div class="doc"><i class="ph ph-users-three" aria-hidden="true"></i><b data-t="d2"></b><small data-t="dUpd"></small></div>
+        <div class="doc"><i class="ph ph-file-text" aria-hidden="true"></i><b data-t="d3"></b><small>PDF</small></div>
+        <div class="doc"><i class="ph ph-file-text" aria-hidden="true"></i><b data-t="d4"></b><small>PDF</small></div>
+        <div class="doc"><i class="ph ph-file-text" aria-hidden="true"></i><b data-t="d5"></b><small>PDF</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="contacte" aria-labelledby="t-contact" style="padding-top:0">
+    <div class="wrap">
+      <div class="contact">
+        <iframe title="Mapa de Gavà" loading="lazy" referrerpolicy="no-referrer" src="https://www.openstreetmap.org/export/embed.html?bbox=1.9885%2C41.2985%2C2.0125%2C41.3125&amp;layer=mapnik"></iframe>
+        <div class="c-card">
+          <h3 id="t-contact" data-t="contactTitle"></h3>
+          <div class="c-row"><i class="ph ph-map-pin" aria-hidden="true"></i><div><b data-t="cAddrT"></b><span data-t="cAddr"></span></div></div>
+          <div class="c-row"><i class="ph ph-clock" aria-hidden="true"></i><div><b data-t="cHoursT"></b><span data-t="cHours"></span></div></div>
+          <div class="c-row"><i class="ph ph-envelope-simple" aria-hidden="true"></i><div><b data-t="cMailT"></b><span data-t="cMail"></span></div></div>
+          <div class="demo-note"><i class="ph ph-info" aria-hidden="true"></i><span data-t="contactNote"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="t-close">
+    <div class="wrap">
+      <div>
+        <h2 id="t-close" data-t="closeTitle"></h2>
+        <p data-t="closeLead"></p>
+        <ul>
+          <li><i class="ph ph-check" aria-hidden="true"></i><span data-t="c1"></span></li>
+          <li><i class="ph ph-check" aria-hidden="true"></i><span data-t="c2"></span></li>
+          <li><i class="ph ph-check" aria-hidden="true"></i><span data-t="c3"></span></li>
+          <li><i class="ph ph-check" aria-hidden="true"></i><span data-t="c4"></span></li>
+        </ul>
+      </div>
+      <a class="btn btn-quota" href="https://lucasyleodigital.com" target="_blank" rel="noopener"><span data-t="wantSite"></span><i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="year"></span> <span data-name></span></span>
+    <nav aria-label="Legal"><a href="#" data-t="legal"></a><a href="#" data-t="privacy"></a><a href="#" data-t="cookies"></a></nav>
+    <span><span data-t="madeBy"></span> <a href="https://lucasyleodigital.com" target="_blank" rel="noopener">Lucas y Leo Digital</a></span>
+  </div>
+</footer>
+
+<script>
+"use strict";
+const I18N = {
+  ca: {
+    defaultName: "Associació Exemple",
+    skip: "Ves al contingut", menu: "Menú",
+    demoGeneric: "Web de demostració feta per Lucas y Leo Digital. Els textos i les imatges són d'exemple.",
+    demoFor: "Proposta de web per a {nom}, feta per Lucas y Leo Digital. Els textos són d'exemple.",
+    wantSite: "Vull una web així",
+    navAbout: "Qui som", navEvents: "Agenda", navJoin: "Participa", navNews: "Notícies", navDocs: "Transparència", navContact: "Contacte",
+    join: "Fes-te soci", seeAgenda: "Veure l'agenda",
+    lead: "Activitats, voluntariat i gent del barri. Fes-te'n soci i forma part del que fem cada setmana.",
+    cardTitle: "CARNET DE SOCI", photo: "Foto", fOrg: "Entitat", fMember: "Nom del soci", yourName: "El teu nom", fSince: "Data d'alta", quota: "Quota", paid: "PAGAT",
+    stampRing: "SEGELL DE L'ENTITAT · GAVÀ ·", cardLabel: "Carnet de soci de {nom}",
+    aboutTitle: "Una entitat feta per persones",
+    about1: "{nom} és una entitat sense ànim de lucre formada per persones voluntàries. Ens mou una idea senzilla: junts fem molt més que cadascú pel seu compte.",
+    about2: "Cada any organitzem activitats, acollim nous socis i treballem colze a colze amb les altres entitats de la ciutat.",
+    aboutNote: "Text d'exemple. A la vostra web hi explicareu la vostra història, amb les vostres paraules i les vostres fotos.",
+    valuesTitle: "El que ens defineix",
+    v1t: "Proximitat", v1d: "Coneixem cada persona pel seu nom.",
+    v2t: "Constància", v2d: "Fem coses petites, però cada setmana.",
+    v3t: "Portes obertes", v3d: "Hi cap tothom, tingui l'edat que tingui.",
+    agendaTitle: "Properes activitats", agendaLead: "L'agenda s'actualitza des d'un panell senzill, sense saber programar.",
+    today: "Avui, {data}", inDays: "d'aquí a {n} dies",
+    events: [
+      ["Trobada de benvinguda per a nous socis", "Seu de l'entitat", "18:00"],
+      ["Taller de reciclatge creatiu", "Casal de barri", "10:30"],
+      ["Xerrada: com fer-se voluntari", "Biblioteca", "19:00"],
+      ["Festa anual de l'entitat", "Parc municipal", "12:00"]
+    ],
+    signUp: "Apunta-m'hi",
+    joinTitle: "Forma part de {nom}", joinLead: "Hi ha tres maneres de sumar-s'hi. Tria la teva i omple la butlleta.",
+    j1t: "Fes-te soci", j1d: "Amb una petita quota anual dones suport a tot el que fem i tens avantatges a les activitats.", j1b: "Vull ser soci",
+    j2t: "Fes-te voluntari", j2d: "Dedica-hi el temps que puguis. T'acompanyem des del primer dia.", j2b: "Vull ajudar",
+    j3t: "Fes un donatiu", j3d: "Cada aportació manté les activitats obertes a tothom. Bizum, transferència o targeta.", j3b: "Vull fer un donatiu",
+    formTitle: "Butlleta d'inscripció", formLead: "Omple-la i et respondrem aviat. Les dades només s'usen per contestar-te.",
+    fName: "Nom i cognoms", fMail: "Correu electrònic", fPhone: "Telèfon (opcional)", fType: "Què t'interessa?",
+    oSoci: "Fer-me soci", oVol: "Fer voluntariat", oDon: "Fer un donatiu", oOther: "Una altra cosa",
+    fMsg: "Missatge (opcional)", fConsent: "He llegit i accepto la política de privacitat.", fSend: "Enviar la butlleta",
+    eName: "Escriu el teu nom.", eMail: "Escriu un correu vàlid, per exemple nom@correu.cat.",
+    eConsent: "Cal acceptar la política de privacitat per enviar-la.",
+    fOk: "Això és una demostració i la butlleta no s'ha enviat. A la vostra web, us arribaria directament al correu de l'entitat.",
+    stampRing2: "BUTLLETA DE DEMOSTRACIÓ ·", received: "REBUDA",
+    newsTitle: "Notícies de l'entitat",
+    news: [
+      ["Tanquem un trimestre ple d'activitats", "Repassem les trobades, tallers i sortides dels últims mesos i donem les gràcies a tots els voluntaris."],
+      ["Busquem voluntaris per a la festa anual", "Necessitem mans per muntar, servir i animar. Si tens unes hores, escriu-nos."],
+      ["Nou horari d'atenció a la seu", "Ara obrim dues tardes per setmana per atendre socis i veïns."]
+    ],
+    galTitle: "Les nostres activitats", galLead: "Aquí aniran les fotos de les vostres activitats, fàcils de pujar des del mòbil.",
+    ph1: "Foto de la festa anual", ph2: "Foto d'un taller", ph3: "Foto dels voluntaris", ph5: "Foto d'una sortida",
+    docsTitle: "Comptes clars", docsLead: "Documents a l'abast de socis, administracions i ciutadania.",
+    d1: "Estatuts", d2: "Junta directiva", d3: "Memòria anual", d4: "Comptes anuals", d5: "Subvencions rebudes", dUpd: "Actualitzada",
+    contactTitle: "Vine a veure'ns",
+    cAddrT: "Adreça", cAddr: "Carrer de l'Exemple, 1, 08850 Gavà",
+    cHoursT: "Horari d'atenció", cHours: "Dimarts i dijous, de 18 a 20 h",
+    cMailT: "Correu", cMail: "info@lavostraentitat.cat",
+    contactNote: "Dades d'exemple. Hi posareu la vostra adreça, horari i correu.",
+    closeTitle: "Us agradaria una web així per a {nom}?",
+    closeLead: "La fem a mida, amb els vostres textos i fotos, i us acompanyem també després de lliurar-la.",
+    c1: "En català i castellà", c2: "Pensada per al mòbil", c3: "Butlletes de socis i voluntaris", c4: "Us ensenyem a actualitzar-la",
+    legal: "Avís legal", privacy: "Privacitat", cookies: "Cookies", madeBy: "Web de demostració feta per",
+    titleSuffix: "web de demostració"
+  },
+  es: {
+    defaultName: "Asociación Ejemplo",
+    skip: "Ir al contenido", menu: "Menú",
+    demoGeneric: "Web de demostración hecha por Lucas y Leo Digital. Los textos y las imágenes son de ejemplo.",
+    demoFor: "Propuesta de web para {nom}, hecha por Lucas y Leo Digital. Los textos son de ejemplo.",
+    wantSite: "Quiero una web así",
+    navAbout: "Quiénes somos", navEvents: "Agenda", navJoin: "Participa", navNews: "Noticias", navDocs: "Transparencia", navContact: "Contacto",
+    join: "Hazte socio", seeAgenda: "Ver la agenda",
+    lead: "Actividades, voluntariado y gente del barrio. Hazte socio y forma parte de lo que hacemos cada semana.",
+    cardTitle: "CARNÉ DE SOCIO", photo: "Foto", fOrg: "Entidad", fMember: "Nombre del socio", yourName: "Tu nombre", fSince: "Fecha de alta", quota: "Cuota", paid: "PAGADO",
+    stampRing: "SELLO DE LA ENTIDAD · GAVÀ ·", cardLabel: "Carné de socio de {nom}",
+    aboutTitle: "Una entidad hecha por personas",
+    about1: "{nom} es una entidad sin ánimo de lucro formada por personas voluntarias. Nos mueve una idea sencilla: juntos hacemos mucho más que cada uno por su cuenta.",
+    about2: "Cada año organizamos actividades, acogemos a nuevos socios y trabajamos codo con codo con las demás entidades de la ciudad.",
+    aboutNote: "Texto de ejemplo. En vuestra web explicaréis vuestra historia, con vuestras palabras y vuestras fotos.",
+    valuesTitle: "Lo que nos define",
+    v1t: "Cercanía", v1d: "Conocemos a cada persona por su nombre.",
+    v2t: "Constancia", v2d: "Hacemos cosas pequeñas, pero cada semana.",
+    v3t: "Puertas abiertas", v3d: "Cabe todo el mundo, tenga la edad que tenga.",
+    agendaTitle: "Próximas actividades", agendaLead: "La agenda se actualiza desde un panel sencillo, sin saber programar.",
+    today: "Hoy, {data}", inDays: "dentro de {n} días",
+    events: [
+      ["Encuentro de bienvenida para nuevos socios", "Sede de la entidad", "18:00"],
+      ["Taller de reciclaje creativo", "Casal de barrio", "10:30"],
+      ["Charla: cómo hacerse voluntario", "Biblioteca", "19:00"],
+      ["Fiesta anual de la entidad", "Parque municipal", "12:00"]
+    ],
+    signUp: "Apúntame",
+    joinTitle: "Forma parte de {nom}", joinLead: "Hay tres maneras de sumarse. Elige la tuya y rellena la ficha.",
+    j1t: "Hazte socio", j1d: "Con una pequeña cuota anual apoyas todo lo que hacemos y tienes ventajas en las actividades.", j1b: "Quiero ser socio",
+    j2t: "Hazte voluntario", j2d: "Dedica el tiempo que puedas. Te acompañamos desde el primer día.", j2b: "Quiero ayudar",
+    j3t: "Haz un donativo", j3d: "Cada aportación mantiene las actividades abiertas a todo el mundo. Bizum, transferencia o tarjeta.", j3b: "Quiero hacer un donativo",
+    formTitle: "Ficha de inscripción", formLead: "Rellénala y te responderemos pronto. Los datos solo se usan para contestarte.",
+    fName: "Nombre y apellidos", fMail: "Correo electrónico", fPhone: "Teléfono (opcional)", fType: "¿Qué te interesa?",
+    oSoci: "Hacerme socio", oVol: "Hacer voluntariado", oDon: "Hacer un donativo", oOther: "Otra cosa",
+    fMsg: "Mensaje (opcional)", fConsent: "He leído y acepto la política de privacidad.", fSend: "Enviar la ficha",
+    eName: "Escribe tu nombre.", eMail: "Escribe un correo válido, por ejemplo nombre@correo.es.",
+    eConsent: "Hay que aceptar la política de privacidad para enviarla.",
+    fOk: "Esto es una demostración y la ficha no se ha enviado. En vuestra web, os llegaría directamente al correo de la entidad.",
+    stampRing2: "FICHA DE DEMOSTRACIÓN ·", received: "RECIBIDA",
+    newsTitle: "Noticias de la entidad",
+    news: [
+      ["Cerramos un trimestre lleno de actividades", "Repasamos los encuentros, talleres y salidas de los últimos meses y damos las gracias a todos los voluntarios."],
+      ["Buscamos voluntarios para la fiesta anual", "Necesitamos manos para montar, servir y animar. Si tienes unas horas, escríbenos."],
+      ["Nuevo horario de atención en la sede", "Ahora abrimos dos tardes por semana para atender a socios y vecinos."]
+    ],
+    galTitle: "Nuestras actividades", galLead: "Aquí irán las fotos de vuestras actividades, fáciles de subir desde el móvil.",
+    ph1: "Foto de la fiesta anual", ph2: "Foto de un taller", ph3: "Foto de los voluntarios", ph5: "Foto de una salida",
+    docsTitle: "Cuentas claras", docsLead: "Documentos al alcance de socios, administraciones y ciudadanía.",
+    d1: "Estatutos", d2: "Junta directiva", d3: "Memoria anual", d4: "Cuentas anuales", d5: "Subvenciones recibidas", dUpd: "Actualizada",
+    contactTitle: "Ven a vernos",
+    cAddrT: "Dirección", cAddr: "Calle del Ejemplo, 1, 08850 Gavà",
+    cHoursT: "Horario de atención", cHours: "Martes y jueves, de 18 a 20 h",
+    cMailT: "Correo", cMail: "info@vuestraentidad.org",
+    contactNote: "Datos de ejemplo. Pondréis vuestra dirección, horario y correo.",
+    closeTitle: "¿Os gustaría una web así para {nom}?",
+    closeLead: "La hacemos a medida, con vuestros textos y fotos, y os acompañamos también después de entregarla.",
+    c1: "En catalán y castellano", c2: "Pensada para el móvil", c3: "Fichas de socios y voluntarios", c4: "Os enseñamos a actualizarla",
+    legal: "Aviso legal", privacy: "Privacidad", cookies: "Cookies", madeBy: "Web de demostración hecha por",
+    titleSuffix: "web de demostración"
+  }
+};
+
+const params = new URLSearchParams(location.search);
+function cleanName(raw) {
+  if (!raw) return "";
+  const n = raw.replace(/\s+/g, " ").trim().replace(/[^\p{L}\p{N} .,'’()·&\-]/gu, "");
+  return n.length >= 2 ? n.slice(0, 90) : "";
+}
+const custom = cleanName(params.get("entidad") || params.get("entitat") || "");
+let lang = (params.get("lang") || "").toLowerCase() === "es" ? "es" : "ca";
+
+function initials(name) {
+  const skip = new Set(["de", "del", "la", "el", "les", "els", "los", "las", "i", "y", "d", "l", "a", "per", "para", "associació", "associacio", "asociación", "asociacion", "entitat", "entidad"]);
+  let w = name.replace(/['’]/g, " ").split(/[\s\-.,()·]+/).filter(x => x && !skip.has(x.toLowerCase()));
+  if (!w.length) w = name.split(/\s+/);
+  return w.slice(0, 2).map(x => x[0]).join("").toUpperCase();
+}
+const loc = () => (lang === "es" ? "es-ES" : "ca-ES");
+const fmt = (d, o) => new Intl.DateTimeFormat(loc(), o).format(d);
+function addDays(n) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + n); return d; }
+
+function render() {
+  const L = I18N[lang];
+  const name = custom || L.defaultName;
+  const sub = (s) => s.replace(/\{nom\}/g, name);
+  document.documentElement.lang = lang;
+  document.title = name + " | " + L.titleSuffix;
+  document.querySelectorAll("[data-name]").forEach(el => { el.textContent = name; });
+  document.querySelectorAll("[data-t]").forEach(el => { const v = L[el.dataset.t]; if (typeof v === "string") el.textContent = sub(v); });
+  document.getElementById("demoText").textContent = custom ? sub(L.demoFor) : L.demoGeneric;
+  const ini = initials(name);
+  document.getElementById("mark").textContent = ini;
+  document.querySelectorAll(".initials").forEach(t => { t.textContent = ini; t.setAttribute("font-size", ini.length > 2 ? 36 : 46); });
+  const h1 = document.getElementById("h1");
+  h1.classList.toggle("mid", name.length > 22 && name.length <= 42);
+  h1.classList.toggle("long", name.length > 42);
+  document.getElementById("carnetLabel").textContent = sub(L.cardLabel);
+
+  const today = addDays(0), y = today.getFullYear();
+  document.getElementById("cardYear").textContent = y;
+  document.getElementById("cardDate").textContent = fmt(today, { day: "2-digit", month: "2-digit", year: "numeric" });
+  const q = ["q1", "q2", "q3", "q4"].map(id => document.getElementById(id));
+  q.forEach((b, i) => { b.textContent = y + i; });
+  q[0].dataset.paid = L.paid;
+  document.getElementById("year").textContent = y;
+  document.getElementById("now").textContent = L.today.replace("{data}", fmt(today, { weekday: "long", day: "numeric", month: "long" }));
+
+  const t = document.getElementById("tickets"); t.innerHTML = "";
+  [5, 10, 16, 31].forEach((n, i) => {
+    const d = addDays(n), [title, place, hour] = L.events[i];
+    const a = document.createElement("article"); a.className = "ticket";
+    a.innerHTML = '<div class="t-stub"><span class="d"></span><span class="m"></span></div>' +
+      '<div class="t-body"><h3></h3><div class="t-meta"><span class="in"><i class="ph ph-calendar-blank" aria-hidden="true"></i><b style="font-weight:400" class="ind"></b></span><span><i class="ph ph-clock" aria-hidden="true"></i><b style="font-weight:400" class="h"></b></span><span><i class="ph ph-map-pin" aria-hidden="true"></i><b style="font-weight:400" class="p"></b></span></div>' +
+      '<a class="btn btn-line btn-sm" href="#butlleta"></a></div>';
+    a.querySelector(".d").textContent = d.getDate();
+    a.querySelector(".m").textContent = fmt(d, { month: "short" }).replace(".", "");
+    a.querySelector(".ind").textContent = L.inDays.replace("{n}", n);
+    a.querySelector("h3").textContent = title;
+    a.querySelector(".h").textContent = fmt(d, { weekday: "long" }) + ", " + hour;
+    a.querySelector(".p").textContent = place;
+    a.querySelector("a").textContent = L.signUp;
+    t.appendChild(a);
+  });
+  requestAnimationFrame(() => {
+    const stub = t.querySelector(".t-stub");
+    if (stub) t.querySelectorAll(".ticket").forEach(k => k.style.setProperty("--stub", stub.offsetHeight + "px"));
+  });
+
+  const dates = [addDays(-4), addDays(-15), addDays(-31)];
+  const f = document.getElementById("nFeat");
+  f.querySelector(".big").textContent = dates[0].getDate();
+  f.querySelector("time").textContent = fmt(dates[0], { day: "numeric", month: "long", year: "numeric" });
+  f.querySelector("time").setAttribute("datetime", dates[0].toISOString().slice(0, 10));
+  f.querySelector("h3").textContent = L.news[0][0];
+  f.querySelector("p").textContent = L.news[0][1];
+  const list = document.getElementById("nList"); list.innerHTML = "";
+  [1, 2].forEach(i => {
+    const a = document.createElement("article"); a.className = "n-item";
+    a.innerHTML = "<time></time><h3></h3><p></p>";
+    a.querySelector("time").textContent = fmt(dates[i], { day: "numeric", month: "long", year: "numeric" });
+    a.querySelector("time").setAttribute("datetime", dates[i].toISOString().slice(0, 10));
+    a.querySelector("h3").textContent = L.news[i][0];
+    a.querySelector("p").textContent = L.news[i][1];
+    list.appendChild(a);
+  });
+}
+
+document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => {
+  lang = b.dataset.lang;
+  document.querySelectorAll(".lang button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  const p = new URLSearchParams(location.search); p.set("lang", lang);
+  history.replaceState(null, "", location.pathname + "?" + p.toString() + location.hash);
+  resetForm(false);
+  render();
+}));
+document.querySelectorAll(".lang button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.lang === lang)));
+
+const menuBtn = document.getElementById("menuBtn"), nav = document.getElementById("nav");
+menuBtn.addEventListener("click", () => { const o = nav.classList.toggle("open"); menuBtn.setAttribute("aria-expanded", String(o)); });
+nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { nav.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }));
+document.querySelectorAll("[data-choice]").forEach(a => a.addEventListener("click", () => { document.getElementById("f-type").value = a.dataset.choice; }));
+
+const form = document.getElementById("form"), msg = document.getElementById("formMsg"), card = document.getElementById("butlleta");
+function resetForm(clear) {
+  card.classList.remove("sent"); msg.textContent = ""; msg.classList.remove("bad");
+  form.querySelectorAll("[aria-invalid]").forEach(x => x.removeAttribute("aria-invalid"));
+  if (clear) form.reset();
+}
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const L = I18N[lang];
+  const name = form.elements.name, mail = form.elements.email, ok = document.getElementById("f-ok");
+  const nOk = name.value.trim().length > 1, mOk = /^\S+@\S+\.\S+$/.test(mail.value.trim());
+  name.setAttribute("aria-invalid", String(!nOk)); mail.setAttribute("aria-invalid", String(!mOk));
+  card.classList.remove("sent");
+  if (!nOk || !mOk || !ok.checked) {
+    msg.textContent = !ok.checked && nOk && mOk ? L.eConsent : (!ok.checked ? L.eConsent : "");
+    msg.classList.toggle("bad", !!msg.textContent);
+    (!nOk ? name : !mOk ? mail : ok).focus();
+    return;
+  }
+  void card.offsetWidth;
+  card.classList.add("sent");
+  msg.classList.remove("bad");
+  msg.textContent = L.fOk;
+  form.reset();
+  form.querySelectorAll("[aria-invalid]").forEach(x => x.removeAttribute("aria-invalid"));
+});
+
+render();
+const carnet = document.getElementById("carnet");
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches) carnet.classList.add("thud");
+</script>
+</body>
+</html>
