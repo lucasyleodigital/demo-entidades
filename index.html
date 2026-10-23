@@ -221,6 +221,8 @@ i.ph { font-size: 1.15em; line-height: 1; }
 .butlleta > p { color: var(--ink-2); margin-bottom: 30px; max-width: 56ch; }
 .form { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 36px; }
 .form .full { grid-column: 1 / -1; }
+.afa-only { display: none; }
+body.afa .afa-only { display: block; }
 .field label { display: block; font-size: 14px; font-weight: 700; letter-spacing: .02em; color: var(--ink-2); margin-bottom: 6px; }
 .field input, .field select, .field textarea { width: 100%; font: 400 19px/1.4 var(--type); color: var(--ink); background: transparent; border: 0; border-bottom: 2px dotted #7d8697; border-radius: 0; padding: 6px 2px 8px; }
 .field textarea { min-height: 90px; resize: vertical; background-image: repeating-linear-gradient(transparent 0 33px, #d6dce6 33px 34px); line-height: 34px; padding-top: 0; }
@@ -262,9 +264,10 @@ i.ph { font-size: 1.15em; line-height: 1; }
 /* Galeria: àlbum */
 .album { background: var(--paper); border-top: 1px solid var(--line); }
 .photos { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 120px; gap: 22px; }
-.ph-slot { position: relative; background: linear-gradient(225deg, var(--ink) 50%, transparent 50%) no-repeat top right / 20px 20px, linear-gradient(45deg, var(--ink) 50%, transparent 50%) no-repeat bottom left / 20px 20px, #e4e8ee; border-radius: 4px; display: grid; place-items: center; text-align: center; color: var(--muted); font-size: 15px; padding: 14px; rotate: var(--rot, 0deg); box-shadow: 0 14px 26px -18px rgba(20, 30, 70, .5); }
-.ph-slot i { display: block; font-size: 30px; margin: 0 auto 6px; color: var(--cobalt); }
-.ph-slot::before, .ph-slot::after { content: ""; position: absolute; width: 20px; height: 20px; background: linear-gradient(135deg, var(--ink) 50%, transparent 50%); }
+.ph-slot { position: relative; margin: 0; background: linear-gradient(225deg, var(--ink) 50%, transparent 50%) no-repeat top right / 20px 20px, linear-gradient(45deg, var(--ink) 50%, transparent 50%) no-repeat bottom left / 20px 20px, #ffffff; border-radius: 3px; display: grid; grid-template-rows: 1fr auto; padding: 8px 8px 0; rotate: var(--rot, 0deg); box-shadow: 0 14px 26px -16px rgba(20, 30, 70, .55); min-height: 0; }
+.ph-slot img { width: 100%; height: 100%; min-height: 0; object-fit: cover; display: block; border-radius: 1px; background: #e4e8ee; }
+.ph-slot figcaption { font: 400 14px/1.2 var(--type); color: var(--ink-2); padding: 7px 4px 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ph-slot::before, .ph-slot::after { content: ""; position: absolute; z-index: 1; width: 20px; height: 20px; background: linear-gradient(135deg, var(--ink) 50%, transparent 50%); }
 .ph-slot::before { left: 0; top: 0; }
 .ph-slot::after { right: 0; bottom: 0; rotate: 180deg; }
 .ps1 { grid-column: span 3; grid-row: span 3; --rot: -1deg; }
@@ -272,7 +275,7 @@ i.ph { font-size: 1.15em; line-height: 1; }
 .ps3 { grid-column: span 2; grid-row: span 2; --rot: .6deg; }
 .ps4 { grid-column: span 1; grid-row: span 2; --rot: -1.4deg; }
 .ps5 { grid-column: span 3; grid-row: span 1; --rot: .8deg; }
-@media (max-width: 760px) { .photos { grid-template-columns: 1fr 1fr; grid-auto-rows: 110px; gap: 16px; } .ps1 { grid-column: span 2; grid-row: span 2; } .ps2, .ps5 { grid-column: span 2; grid-row: span 1; } .ps3, .ps4 { grid-column: span 1; grid-row: span 2; } }
+@media (max-width: 760px) { .photos { grid-template-columns: 1fr 1fr; grid-auto-rows: 120px; gap: 16px; } .ps1 { grid-column: span 2; grid-row: span 2; } .ps2, .ps5 { grid-column: span 2; grid-row: span 1; } .ps3, .ps4 { grid-column: span 1; grid-row: span 2; } }
 
 /* Transparència */
 .docs { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
@@ -478,6 +481,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
           <div class="field"><label for="f-name" data-t="fName"></label><input id="f-name" name="name" autocomplete="name"><span class="err" data-t="eName"></span></div>
           <div class="field"><label for="f-mail" data-t="fMail"></label><input id="f-mail" name="email" type="email" autocomplete="email"><span class="err" data-t="eMail"></span></div>
           <div class="field"><label for="f-phone" data-t="fPhone"></label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="field afa-only full"><label for="f-course" data-t="fCourse"></label><input id="f-course" name="course"></div>
           <div class="field"><label for="f-type" data-t="fType"></label>
             <select id="f-type" name="type">
               <option value="soci" data-t="oSoci"></option>
@@ -522,11 +526,11 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     <div class="wrap">
       <div class="sec-head"><h2 id="t-gal" data-t="galTitle"></h2><p data-t="galLead"></p></div>
       <div class="photos">
-        <div class="ph-slot ps1"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph1"></span></span></div>
-        <div class="ph-slot ps2"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph2"></span></span></div>
-        <div class="ph-slot ps3"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph3"></span></span></div>
-        <div class="ph-slot ps4"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph4"></span></span></div>
-        <div class="ph-slot ps5"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph5"></span></span></div>
+        <figure class="ph-slot ps1"><img data-photo="1" alt="" loading="lazy" decoding="async"><figcaption data-t="ph1"></figcaption></figure>
+        <figure class="ph-slot ps2"><img data-photo="2" alt="" loading="lazy" decoding="async"><figcaption data-t="ph2"></figcaption></figure>
+        <figure class="ph-slot ps3"><img data-photo="3" alt="" loading="lazy" decoding="async"><figcaption data-t="ph3"></figcaption></figure>
+        <figure class="ph-slot ps4"><img data-photo="4" alt="" loading="lazy" decoding="async"><figcaption data-t="ph4"></figcaption></figure>
+        <figure class="ph-slot ps5"><img data-photo="5" alt="" loading="lazy" decoding="async"><figcaption data-t="ph5"></figcaption></figure>
       </div>
     </div>
   </section>
@@ -652,8 +656,8 @@ const I18N = {
       ["Busquem voluntaris per a la festa anual", "Necessitem mans per muntar, servir i animar. Si tens unes hores, escriu-nos."],
       ["Nou horari d'atenció a la seu", "Ara obrim dues tardes per setmana per atendre socis i veïns."]
     ],
-    galTitle: "Les nostres activitats", galLead: "Aquí aniran les fotos de les vostres activitats, fàcils de pujar des del mòbil.",
-    ph1: "Foto de la festa anual", ph2: "Foto d'un taller", ph3: "Foto dels voluntaris", ph4: "Foto d'una reunió", ph5: "Foto d'una sortida",
+    photoEx: "foto d'exemple", galTitle: "Les nostres activitats", galLead: "Fotos d'exemple. Aquí aniran les fotos de les vostres activitats, fàcils de pujar des del mòbil.", fCourse: "Curs de l'alumne (opcional)",
+    ph1: "Trobada al parc", ph2: "Sopar de germanor", ph3: "Taller de pintura", ph4: "Assaig de música", ph5: "Festa major",
     docsTitle: "Comptes clars", docsLead: "Documents a l'abast de socis, administracions i ciutadania.",
     d1: "Estatuts", d2: "Junta directiva", d3: "Memòria anual", d4: "Comptes anuals", d5: "Subvencions rebudes", dUpd: "Actualitzada", d4d: "Ingressos, despeses i quotes de l'any, a l'abast de tots els socis.", pdfEx: "PDF d'exemple", docYear: "Exercici {any}",
     contactTitle: "Vine a veure'ns",
@@ -713,8 +717,8 @@ const I18N = {
       ["Buscamos voluntarios para la fiesta anual", "Necesitamos manos para montar, servir y animar. Si tienes unas horas, escríbenos."],
       ["Nuevo horario de atención en la sede", "Ahora abrimos dos tardes por semana para atender a socios y vecinos."]
     ],
-    galTitle: "Nuestras actividades", galLead: "Aquí irán las fotos de vuestras actividades, fáciles de subir desde el móvil.",
-    ph1: "Foto de la fiesta anual", ph2: "Foto de un taller", ph3: "Foto de los voluntarios", ph4: "Foto de una reunión", ph5: "Foto de una salida",
+    photoEx: "foto de ejemplo", galTitle: "Nuestras actividades", galLead: "Fotos de ejemplo. Aquí irán las fotos de vuestras actividades, fáciles de subir desde el móvil.", fCourse: "Curso del alumno (opcional)",
+    ph1: "Encuentro en el parque", ph2: "Cena de hermandad", ph3: "Taller de pintura", ph4: "Ensayo de música", ph5: "Fiesta mayor",
     docsTitle: "Cuentas claras", docsLead: "Documentos al alcance de socios, administraciones y ciudadanía.",
     d1: "Estatutos", d2: "Junta directiva", d3: "Memoria anual", d4: "Cuentas anuales", d5: "Subvenciones recibidas", dUpd: "Actualizada", d4d: "Ingresos, gastos y cuotas del año, al alcance de todos los socios.", pdfEx: "PDF de ejemplo", docYear: "Ejercicio {any}",
     contactTitle: "Ven a vernos",
@@ -730,6 +734,82 @@ const I18N = {
   }
 };
 
+/* Variant per a AFA / AMPA: només canvien els textos, el món visual és el mateix. */
+const AFA = {
+  ca: {
+    defaultName: "AFA Escola Exemple",
+    lead: "Extraescolars, acollida i famílies que fan escola. Feu-vos-en socis i el curs serà més fàcil per a tothom.",
+    cardTitle: "CARNET DE FAMÍLIA SÒCIA", fOrg: "AFA", fMember: "Família", yourName: "La vostra família",
+    stampRing: "SEGELL DE L'AFA · GAVÀ ·", cardLabel: "Carnet de família sòcia de {nom}",
+    aboutTitle: "Famílies que fan escola",
+    about1: "{nom} és l'associació de famílies de l'escola. Som mares, pares i tutors voluntaris que treballem perquè l'escola sigui un lloc millor per als nens i nenes.",
+    about2: "Organitzem les extraescolars i l'acollida, donem suport a les festes de l'escola i fem de pont entre les famílies i l'equip docent.",
+    v1t: "Famílies juntes", v1d: "Cada família suma, encara que sigui una estona.",
+    v2t: "Escola oberta", v2d: "Volem una escola on tothom se senti a casa.",
+    v3t: "Comunicació clara", v3d: "Informació a temps, sense perseguir-la per WhatsApp.",
+    agendaLead: "Extraescolars, reunions i festes, sempre al dia. Es gestiona des d'un panell senzill.",
+    events: [
+      ["Reunió informativa d'extraescolars", "Biblioteca de l'escola", "18:00"],
+      ["Assemblea general de famílies", "Menjador de l'escola", "17:30"],
+      ["Taller per a famílies: pantalles i descans", "Sala d'actes", "18:30"],
+      ["Festa de final de trimestre", "Pati de l'escola", "16:30"]
+    ],
+    joinTitle: "Formeu part de {nom}", joinLead: "Tres maneres de participar a la vida de l'escola. Trieu la vostra i ompliu la butlleta.",
+    j1t: "Família sòcia", j1d: "Amb la quota anual per família ens ajudeu a organitzar activitats i teniu preu reduït a les extraescolars.", j1b: "Fer-nos socis",
+    j2t: "Extraescolars", j2d: "Inscriviu els vostres fills i filles en línia, amb places i horaris sempre al dia.", j2b: "Inscriure'm",
+    j3t: "Comissions de famílies", j3d: "Festes, menjador, biblioteca o patis: hi ha una comissió per a cada interès.", j3b: "Vull participar",
+    oSoci: "Fer-nos família sòcia", oVol: "Inscriure a una extraescolar", oDon: "Participar en una comissió",
+    newsTitle: "Notícies de l'AFA",
+    news: [
+      ["Obertes les inscripcions a extraescolars", "Consulteu horaris, places i preus de totes les activitats d'aquest trimestre."],
+      ["Recollida de llibres per a la socialització", "Porteu els llibres del curs passat a la biblioteca abans de divendres."],
+      ["Resum de l'assemblea de famílies", "Us expliquem els acords i el pressupost del curs."]
+    ],
+    galTitle: "La vida a l'escola",
+    ph1: "Festa de famílies", ph2: "Sortida al parc", ph3: "Extraescolar de dibuix", ph4: "Biblioteca", ph5: "Socialització de llibres",
+    d2: "Junta de l'AFA", d3: "Memòria del curs", d5: "Quotes i preus d'extraescolars",
+    d4d: "Ingressos, despeses i quotes del curs, a l'abast de totes les famílies.", docYear: "Curs {any}",
+    contactTitle: "On som", cAddr: "Escola Exemple, Carrer de l'Exemple, 1, 08850 Gavà", cHours: "Dilluns i dimecres, de 16:30 a 17:30", cMail: "afa@escolaexemple.cat",
+    c3: "Inscripcions a extraescolars en línia"
+  },
+  es: {
+    defaultName: "AMPA Escuela Ejemplo",
+    lead: "Extraescolares, acogida y familias que hacen escuela. Haceos socios y el curso será más fácil para todos.",
+    cardTitle: "CARNÉ DE FAMILIA SOCIA", fOrg: "AMPA", fMember: "Familia", yourName: "Vuestra familia",
+    stampRing: "SELLO DEL AMPA · GAVÀ ·", cardLabel: "Carné de familia socia de {nom}",
+    aboutTitle: "Familias que hacen escuela",
+    about1: "{nom} es la asociación de familias de la escuela. Somos madres, padres y tutores voluntarios que trabajamos para que la escuela sea un lugar mejor para los niños y niñas.",
+    about2: "Organizamos las extraescolares y la acogida, apoyamos las fiestas de la escuela y hacemos de puente entre las familias y el equipo docente.",
+    v1t: "Familias juntas", v1d: "Cada familia suma, aunque sea un rato.",
+    v2t: "Escuela abierta", v2d: "Queremos una escuela donde todos se sientan en casa.",
+    v3t: "Comunicación clara", v3d: "Información a tiempo, sin perseguirla por WhatsApp.",
+    agendaLead: "Extraescolares, reuniones y fiestas, siempre al día. Se gestiona desde un panel sencillo.",
+    events: [
+      ["Reunión informativa de extraescolares", "Biblioteca de la escuela", "18:00"],
+      ["Asamblea general de familias", "Comedor de la escuela", "17:30"],
+      ["Taller para familias: pantallas y descanso", "Salón de actos", "18:30"],
+      ["Fiesta de final de trimestre", "Patio de la escuela", "16:30"]
+    ],
+    joinTitle: "Formad parte de {nom}", joinLead: "Tres maneras de participar en la vida de la escuela. Elegid la vuestra y rellenad la ficha.",
+    j1t: "Familia socia", j1d: "Con la cuota anual por familia nos ayudáis a organizar actividades y tenéis precio reducido en las extraescolares.", j1b: "Hacernos socios",
+    j2t: "Extraescolares", j2d: "Inscribid a vuestros hijos e hijas en línea, con plazas y horarios siempre al día.", j2b: "Inscribirme",
+    j3t: "Comisiones de familias", j3d: "Fiestas, comedor, biblioteca o patios: hay una comisión para cada interés.", j3b: "Quiero participar",
+    oSoci: "Hacernos familia socia", oVol: "Inscribir en una extraescolar", oDon: "Participar en una comisión",
+    newsTitle: "Noticias del AMPA",
+    news: [
+      ["Abiertas las inscripciones a extraescolares", "Consultad horarios, plazas y precios de todas las actividades de este trimestre."],
+      ["Recogida de libros para la socialización", "Traed los libros del curso pasado a la biblioteca antes del viernes."],
+      ["Resumen de la asamblea de familias", "Os contamos los acuerdos y el presupuesto del curso."]
+    ],
+    galTitle: "La vida en la escuela",
+    ph1: "Fiesta de familias", ph2: "Salida al parque", ph3: "Extraescolar de dibujo", ph4: "Biblioteca", ph5: "Socialización de libros",
+    d2: "Junta del AMPA", d3: "Memoria del curso", d5: "Cuotas y precios de extraescolares",
+    d4d: "Ingresos, gastos y cuotas del curso, al alcance de todas las familias.", docYear: "Curso {any}",
+    contactTitle: "Dónde estamos", cAddr: "Escuela Ejemplo, Calle del Ejemplo, 1, 08850 Gavà", cHours: "Lunes y miércoles, de 16:30 a 17:30", cMail: "ampa@escuelaejemplo.org",
+    c3: "Inscripciones a extraescolares en línea"
+  }
+};
+
 const params = new URLSearchParams(location.search);
 function cleanName(raw) {
   if (!raw) return "";
@@ -738,10 +818,16 @@ function cleanName(raw) {
 }
 const custom = cleanName(params.get("entidad") || params.get("entitat") || "");
 let lang = (params.get("lang") || "").toLowerCase() === "es" ? "es" : "ca";
+const AFA_RE = /^(afa|ampa|apa|amipa)\b|fam[ií]li(es|as) d(e |')(l[’']?)?alumn|pares d'alumnes|padres de alumnos|madres y padres/i;
+const tipus = (params.get("tipus") || params.get("tipo") || "").toLowerCase();
+const isAfa = tipus === "afa" || tipus === "ampa" || (tipus !== "entitat" && tipus !== "entidad" && AFA_RE.test(custom));
+document.body.classList.toggle("afa", isAfa);
+const T = () => (isAfa ? Object.assign({}, I18N[lang], AFA[lang]) : I18N[lang]);
+const PHOTOS = isAfa ? ["afa-1", "afa-5", "afa-4", "afa-3", "afa-2"] : ["ent-1", "ent-2", "ent-3", "ent-4", "ent-5"];
 
 function initials(name) {
-  const skip = new Set(["de", "del", "la", "el", "les", "els", "los", "las", "i", "y", "d", "l", "a", "per", "para", "associació", "associacio", "asociación", "asociacion", "entitat", "entidad"]);
-  let w = name.replace(/['’]/g, " ").split(/[\s\-.,()·]+/).filter(x => x && !skip.has(x.toLowerCase()));
+  const skip = new Set(["de", "del", "la", "el", "les", "els", "los", "las", "i", "y", "d", "l", "a", "per", "para", "associació", "associacio", "asociación", "asociacion", "entitat", "entidad", "afa", "ampa", "apa", "escola", "escuela", "institut", "instituto", "ies", "ceip", "famílies", "families", "familias", "alumnes", "alumnos", "pares", "padres", "mares", "madres"]);
+  let w = name.replace(/['’]/g, " ").split(/[\s\-.,()]+/).filter(x => x && !skip.has(x.toLowerCase()));
   if (!w.length) w = name.split(/\s+/);
   return w.slice(0, 2).map(x => x[0]).join("").toUpperCase();
 }
@@ -750,7 +836,7 @@ const fmt = (d, o) => new Intl.DateTimeFormat(loc(), o).format(d);
 function addDays(n) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + n); return d; }
 
 function render() {
-  const L = I18N[lang];
+  const L = T();
   const name = custom || L.defaultName;
   const sub = (s) => s.replace(/\{nom\}/g, name);
   document.documentElement.lang = lang;
@@ -770,10 +856,12 @@ function render() {
   
   document.getElementById("cardDate").textContent = fmt(today, { day: "2-digit", month: "2-digit", year: "numeric" });
   const q = ["q1", "q2", "q3", "q4"].map(id => document.getElementById(id));
-  q.forEach((b, i) => { b.textContent = y + i; });
+  const c0 = today.getMonth() >= 7 ? y : y - 1;
+  q.forEach((b, i) => { b.textContent = isAfa ? String((c0 + i) % 100).padStart(2, "0") + "-" + String((c0 + i + 1) % 100).padStart(2, "0") : y + i; });
   q[0].dataset.paid = L.paid;
   document.getElementById("year").textContent = y;
-  document.getElementById("docYear").textContent = L.docYear.replace("{any}", y - 1);
+  document.getElementById("docYear").textContent = L.docYear.replace("{any}", isAfa ? (c0 - 1) + "-" + String(c0 % 100).padStart(2, "0") : y - 1);
+  document.querySelectorAll("[data-photo]").forEach(img => { const k = +img.dataset.photo; img.src = "img/" + PHOTOS[k - 1] + ".jpg"; img.alt = L["ph" + k] + " (" + L.photoEx + ")"; });
   document.getElementById("now").textContent = L.today.replace("{data}", fmt(today, { weekday: "long", day: "numeric", month: "long" }));
 
   const t = document.getElementById("tickets"); t.innerHTML = "";
@@ -839,7 +927,7 @@ function resetForm(clear) {
 }
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const L = I18N[lang];
+  const L = T();
   const name = form.elements.name, mail = form.elements.email, ok = document.getElementById("f-ok");
   const nOk = name.value.trim().length > 1, mOk = /^\S+@\S+\.\S+$/.test(mail.value.trim());
   name.setAttribute("aria-invalid", String(!nOk)); mail.setAttribute("aria-invalid", String(!mOk));
