@@ -129,7 +129,7 @@ i.ph { font-size: 1.15em; line-height: 1; }
 .c-box.paid::after { content: attr(data-paid); position: absolute; inset: -3px; background: var(--quota); color: var(--ink); font: 700 max(8px, 1.8cqw)/1 var(--sans); font-stretch: 112%; letter-spacing: .06em; display: grid; place-items: center; border-radius: 2px; rotate: -4deg; box-shadow: 0 2px 4px rgba(0,0,0,.18); }
 @media (max-width: 600px) { .carnet { aspect-ratio: auto; } }
 .stamp { position: absolute; right: -3cqw; bottom: 1cqw; width: 31cqw; aspect-ratio: 1; color: var(--stamp); mix-blend-mode: multiply; rotate: -14deg; opacity: .9; pointer-events: none; }
-.stamp svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.stamp svg { width: 100%; height: 100%; display: block; overflow: visible; -webkit-mask-image: url(img/ink.png); mask-image: url(img/ink.png); -webkit-mask-size: 160px; mask-size: 160px; }
 .stamp text { font-family: var(--sans); font-weight: 800; fill: currentColor; }
 
 /* Moment de càrrega: el carnet arriba i el segell cau una vegada */
@@ -157,8 +157,8 @@ i.ph { font-size: 1.15em; line-height: 1; }
 .about .text p { font-size: 20px; color: var(--ink-2); max-width: 52ch; }
 .about .text p + p { margin-top: 18px; }
 .about .demo-note { margin-top: 28px; }
-.fitxa { background: var(--paper); border-radius: var(--r-card); padding: 34px 34px 30px; rotate: 1.2deg; box-shadow: 0 30px 50px -34px rgba(20, 30, 70, .55), 0 6px 14px -8px rgba(20, 30, 70, .25); background-image: linear-gradient(transparent 0 63px, #e7a6a3 63px 65px, transparent 65px), repeating-linear-gradient(transparent 0 37px, #d6dce6 37px 38px); background-position: 0 0, 0 26px; }
-.fitxa h3 { font-size: 15px; font-stretch: 125%; letter-spacing: .14em; text-transform: uppercase; color: var(--cobalt); margin-bottom: 18px; line-height: 1.2; }
+.fitxa { background: var(--paper); border-radius: var(--r-card); padding: 34px 34px 30px; rotate: 1.2deg; box-shadow: 0 30px 50px -34px rgba(20, 30, 70, .55), 0 6px 14px -8px rgba(20, 30, 70, .25); }
+.fitxa h3 { font: 700 19px/1.3 var(--type); color: var(--ink); letter-spacing: 0; padding-bottom: 14px; margin-bottom: 14px; border-bottom: 2px solid #e7a6a3; }
 .fitxa ol { list-style: none; margin: 0; padding: 0; counter-reset: v; }
 .fitxa li { counter-increment: v; display: grid; grid-template-columns: 34px 1fr; gap: 6px; padding: 8px 0 14px; }
 .fitxa li::before { content: counter(v) "."; font-family: var(--type); font-weight: 700; color: var(--stamp-text); font-size: 20px; line-height: 1.5; }
@@ -262,11 +262,11 @@ i.ph { font-size: 1.15em; line-height: 1; }
 /* Galeria: àlbum */
 .album { background: var(--paper); border-top: 1px solid var(--line); }
 .photos { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 120px; gap: 22px; }
-.ph-slot { position: relative; background: #e4e8ee; border-radius: 4px; display: grid; place-items: center; text-align: center; color: #6b7384; font-size: 15px; padding: 14px; rotate: var(--rot, 0deg); box-shadow: 0 14px 26px -18px rgba(20, 30, 70, .5); }
+.ph-slot { position: relative; background: linear-gradient(225deg, var(--ink) 50%, transparent 50%) no-repeat top right / 20px 20px, linear-gradient(45deg, var(--ink) 50%, transparent 50%) no-repeat bottom left / 20px 20px, #e4e8ee; border-radius: 4px; display: grid; place-items: center; text-align: center; color: var(--muted); font-size: 15px; padding: 14px; rotate: var(--rot, 0deg); box-shadow: 0 14px 26px -18px rgba(20, 30, 70, .5); }
 .ph-slot i { display: block; font-size: 30px; margin: 0 auto 6px; color: var(--cobalt); }
-.ph-slot::before, .ph-slot::after { content: ""; position: absolute; width: 26px; height: 26px; background: linear-gradient(135deg, var(--ink) 50%, transparent 50%); }
-.ph-slot::before { left: -6px; top: -6px; }
-.ph-slot::after { right: -6px; bottom: -6px; rotate: 180deg; }
+.ph-slot::before, .ph-slot::after { content: ""; position: absolute; width: 20px; height: 20px; background: linear-gradient(135deg, var(--ink) 50%, transparent 50%); }
+.ph-slot::before { left: 0; top: 0; }
+.ph-slot::after { right: 0; bottom: 0; rotate: 180deg; }
 .ps1 { grid-column: span 3; grid-row: span 3; --rot: -1deg; }
 .ps2 { grid-column: span 3; grid-row: span 2; --rot: 1.2deg; }
 .ps3 { grid-column: span 2; grid-row: span 2; --rot: .6deg; }
@@ -275,13 +275,21 @@ i.ph { font-size: 1.15em; line-height: 1; }
 @media (max-width: 760px) { .photos { grid-template-columns: 1fr 1fr; grid-auto-rows: 110px; gap: 16px; } .ps1 { grid-column: span 2; grid-row: span 2; } .ps2, .ps5 { grid-column: span 2; grid-row: span 1; } .ps3, .ps4 { grid-column: span 1; grid-row: span 2; } }
 
 /* Transparència */
-.docs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
-.doc { position: relative; background: var(--paper); border-radius: 4px var(--r-card) var(--r-card) var(--r-card); padding: 26px 18px 20px; display: grid; gap: 6px; box-shadow: 0 12px 24px -18px rgba(20, 30, 70, .5); }
-.doc::before { content: ""; position: absolute; top: -12px; left: 0; width: 46%; height: 14px; background: var(--paper); border-radius: 8px 8px 0 0; }
-.doc i { font-size: 28px; color: var(--cobalt); }
-.doc b { font-size: 17px; font-weight: 700; line-height: 1.25; }
-.doc small { font-family: var(--type); color: var(--ink-2); font-size: 14px; }
-@media (max-width: 900px) { .docs { grid-template-columns: repeat(2, 1fr); row-gap: 28px; } }
+.docs { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.doc-main { position: relative; background: var(--paper); border-radius: 4px var(--r-card) var(--r-card) var(--r-card); padding: 44px 40px 40px; rotate: -1deg; box-shadow: 0 30px 50px -34px rgba(20, 30, 70, .55), 0 6px 14px -8px rgba(20, 30, 70, .25); }
+.doc-main::before { content: ""; position: absolute; top: -16px; left: 0; width: 38%; height: 18px; background: var(--paper); border-radius: 10px 10px 0 0; }
+.doc-main > i { font-size: 44px; color: var(--cobalt); }
+.doc-main h3 { font-size: clamp(32px, 3.4vw, 44px); margin: 12px 0 8px; }
+.doc-main .typed { font-family: var(--type); font-size: 19px; color: var(--ink); margin-bottom: 14px; }
+.doc-main p { color: var(--ink-2); max-width: 40ch; }
+.sticker { display: inline-block; margin-top: 22px; background: var(--quota); color: var(--ink); font: 700 14px/1 var(--sans); font-stretch: 112%; letter-spacing: .06em; text-transform: uppercase; padding: 10px 14px; border-radius: 3px; rotate: -3deg; box-shadow: 0 3px 6px rgba(0, 0, 0, .18); }
+.doc-list { list-style: none; margin: 0; padding: 0; }
+.doc-list li { display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 12px; padding: 18px 4px; border-bottom: 1.5px solid var(--line); }
+.doc-list li:first-child { border-top: 1.5px solid var(--line); }
+.doc-list i { font-size: 24px; color: var(--cobalt); }
+.doc-list b { font-size: 19px; font-weight: 700; }
+.doc-list small { font-family: var(--type); color: var(--ink-2); font-size: 15px; }
+@media (max-width: 900px) { .docs { grid-template-columns: 1fr; gap: 36px; } .doc-main { rotate: 0deg; padding: 36px 26px 30px; } }
 
 /* Contacte */
 .contact { position: relative; border-radius: var(--r-card); overflow: hidden; min-height: 460px; background: #dfe4ea; }
@@ -302,7 +310,8 @@ i.ph { font-size: 1.15em; line-height: 1; }
 .close ul { list-style: none; padding: 0; margin: 26px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
 .close li { display: flex; gap: 10px; align-items: center; font-size: 17px; }
 .close li i { color: var(--quota); }
-.close .btn { justify-self: start; }
+.close-act { display: grid; justify-items: start; gap: 22px; }
+.close-stamp { position: relative; right: auto; bottom: auto; width: 150px; color: #ff6a5f; mix-blend-mode: normal; rotate: -12deg; opacity: .95; }
 @media (max-width: 900px) { .close .wrap { grid-template-columns: 1fr; } .close ul { grid-template-columns: 1fr; } .close { padding: 76px 0; } }
 
 footer { background: var(--ink); color: #b7bdc8; font-size: 14px; padding: 26px 0 34px; }
@@ -383,7 +392,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
       <div class="carnet-wrap">
         <div class="carnet" id="carnet" role="img" aria-labelledby="carnetLabel">
           <span class="sr" id="carnetLabel"></span>
-          <div class="c-band"><b data-t="cardTitle">CARNET DE SOCI</b><span id="cardYear"></span></div>
+          <div class="c-band"><b data-t="cardTitle">CARNET DE SOCI</b><span><span data-t="memberNo">Núm.</span> 0001</span></div>
           <div class="c-body">
             <div class="c-photo"><span><i class="ph ph-user" aria-hidden="true"></i><span data-t="photo">Foto</span></span></div>
             <div class="c-fields">
@@ -516,7 +525,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         <div class="ph-slot ps1"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph1"></span></span></div>
         <div class="ph-slot ps2"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph2"></span></span></div>
         <div class="ph-slot ps3"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph3"></span></span></div>
-        <div class="ph-slot ps4"><span><i class="ph ph-image" aria-hidden="true"></i></span></div>
+        <div class="ph-slot ps4"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph4"></span></span></div>
         <div class="ph-slot ps5"><span><i class="ph ph-image" aria-hidden="true"></i><span data-t="ph5"></span></span></div>
       </div>
     </div>
@@ -526,11 +535,19 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     <div class="wrap">
       <div class="sec-head"><h2 id="t-docs" data-t="docsTitle"></h2><p data-t="docsLead"></p></div>
       <div class="docs">
-        <div class="doc"><i class="ph ph-file-text" aria-hidden="true"></i><b data-t="d1"></b><small>PDF</small></div>
-        <div class="doc"><i class="ph ph-users-three" aria-hidden="true"></i><b data-t="d2"></b><small data-t="dUpd"></small></div>
-        <div class="doc"><i class="ph ph-file-text" aria-hidden="true"></i><b data-t="d3"></b><small>PDF</small></div>
-        <div class="doc"><i class="ph ph-file-text" aria-hidden="true"></i><b data-t="d4"></b><small>PDF</small></div>
-        <div class="doc"><i class="ph ph-file-text" aria-hidden="true"></i><b data-t="d5"></b><small>PDF</small></div>
+        <article class="doc-main">
+          <i class="ph ph-file-text" aria-hidden="true"></i>
+          <h3 data-t="d4"></h3>
+          <p class="typed" id="docYear"></p>
+          <p data-t="d4d"></p>
+          <span class="sticker" data-t="pdfEx"></span>
+        </article>
+        <ul class="doc-list">
+          <li><i class="ph ph-scroll" aria-hidden="true"></i><b data-t="d1"></b><small>PDF</small></li>
+          <li><i class="ph ph-users-three" aria-hidden="true"></i><b data-t="d2"></b><small data-t="dUpd"></small></li>
+          <li><i class="ph ph-book-open" aria-hidden="true"></i><b data-t="d3"></b><small>PDF</small></li>
+          <li><i class="ph ph-hand-coins" aria-hidden="true"></i><b data-t="d5"></b><small>PDF</small></li>
+        </ul>
       </div>
     </div>
   </section>
@@ -562,7 +579,18 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
           <li><i class="ph ph-check" aria-hidden="true"></i><span data-t="c4"></span></li>
         </ul>
       </div>
-      <a class="btn btn-quota" href="https://lucasyleodigital.com" target="_blank" rel="noopener"><span data-t="wantSite"></span><i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+      <div class="close-act">
+        <div class="stamp close-stamp" aria-hidden="true">
+          <svg viewBox="0 0 200 200">
+            <defs><path id="ring3" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
+            <circle cx="100" cy="100" r="94" fill="none" stroke="currentColor" stroke-width="6"/>
+            <circle cx="100" cy="100" r="58" fill="none" stroke="currentColor" stroke-width="3"/>
+            <text font-size="17" letter-spacing="3"><textPath href="#ring3" textLength="452">LUCAS Y LEO DIGITAL · GAVÀ ·</textPath></text>
+            <text x="100" y="117" font-size="46" text-anchor="middle">LL</text>
+          </svg>
+        </div>
+        <a class="btn btn-quota" href="https://lucasyleodigital.com" target="_blank" rel="noopener"><span data-t="wantSite"></span><i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+      </div>
     </div>
   </section>
 </main>
@@ -587,7 +615,7 @@ const I18N = {
     navAbout: "Qui som", navEvents: "Agenda", navJoin: "Participa", navNews: "Notícies", navDocs: "Transparència", navContact: "Contacte",
     join: "Fes-te soci", seeAgenda: "Veure l'agenda",
     lead: "Activitats, voluntariat i gent del barri. Fes-te'n soci i forma part del que fem cada setmana.",
-    cardTitle: "CARNET DE SOCI", photo: "Foto", fOrg: "Entitat", fMember: "Nom del soci", yourName: "El teu nom", fSince: "Data d'alta", quota: "Quota", paid: "PAGAT",
+    cardTitle: "CARNET DE SOCI", memberNo: "Núm.", photo: "Foto", fOrg: "Entitat", fMember: "Nom del soci", yourName: "El teu nom", fSince: "Data d'alta", quota: "Quota", paid: "PAGAT",
     stampRing: "SEGELL DE L'ENTITAT · GAVÀ ·", cardLabel: "Carnet de soci de {nom}",
     aboutTitle: "Una entitat feta per persones",
     about1: "{nom} és una entitat sense ànim de lucre formada per persones voluntàries. Ens mou una idea senzilla: junts fem molt més que cadascú pel seu compte.",
@@ -625,9 +653,9 @@ const I18N = {
       ["Nou horari d'atenció a la seu", "Ara obrim dues tardes per setmana per atendre socis i veïns."]
     ],
     galTitle: "Les nostres activitats", galLead: "Aquí aniran les fotos de les vostres activitats, fàcils de pujar des del mòbil.",
-    ph1: "Foto de la festa anual", ph2: "Foto d'un taller", ph3: "Foto dels voluntaris", ph5: "Foto d'una sortida",
+    ph1: "Foto de la festa anual", ph2: "Foto d'un taller", ph3: "Foto dels voluntaris", ph4: "Foto d'una reunió", ph5: "Foto d'una sortida",
     docsTitle: "Comptes clars", docsLead: "Documents a l'abast de socis, administracions i ciutadania.",
-    d1: "Estatuts", d2: "Junta directiva", d3: "Memòria anual", d4: "Comptes anuals", d5: "Subvencions rebudes", dUpd: "Actualitzada",
+    d1: "Estatuts", d2: "Junta directiva", d3: "Memòria anual", d4: "Comptes anuals", d5: "Subvencions rebudes", dUpd: "Actualitzada", d4d: "Ingressos, despeses i quotes de l'any, a l'abast de tots els socis.", pdfEx: "PDF d'exemple", docYear: "Exercici {any}",
     contactTitle: "Vine a veure'ns",
     cAddrT: "Adreça", cAddr: "Carrer de l'Exemple, 1, 08850 Gavà",
     cHoursT: "Horari d'atenció", cHours: "Dimarts i dijous, de 18 a 20 h",
@@ -648,7 +676,7 @@ const I18N = {
     navAbout: "Quiénes somos", navEvents: "Agenda", navJoin: "Participa", navNews: "Noticias", navDocs: "Transparencia", navContact: "Contacto",
     join: "Hazte socio", seeAgenda: "Ver la agenda",
     lead: "Actividades, voluntariado y gente del barrio. Hazte socio y forma parte de lo que hacemos cada semana.",
-    cardTitle: "CARNÉ DE SOCIO", photo: "Foto", fOrg: "Entidad", fMember: "Nombre del socio", yourName: "Tu nombre", fSince: "Fecha de alta", quota: "Cuota", paid: "PAGADO",
+    cardTitle: "CARNÉ DE SOCIO", memberNo: "N.º", photo: "Foto", fOrg: "Entidad", fMember: "Nombre del socio", yourName: "Tu nombre", fSince: "Fecha de alta", quota: "Cuota", paid: "PAGADO",
     stampRing: "SELLO DE LA ENTIDAD · GAVÀ ·", cardLabel: "Carné de socio de {nom}",
     aboutTitle: "Una entidad hecha por personas",
     about1: "{nom} es una entidad sin ánimo de lucro formada por personas voluntarias. Nos mueve una idea sencilla: juntos hacemos mucho más que cada uno por su cuenta.",
@@ -686,9 +714,9 @@ const I18N = {
       ["Nuevo horario de atención en la sede", "Ahora abrimos dos tardes por semana para atender a socios y vecinos."]
     ],
     galTitle: "Nuestras actividades", galLead: "Aquí irán las fotos de vuestras actividades, fáciles de subir desde el móvil.",
-    ph1: "Foto de la fiesta anual", ph2: "Foto de un taller", ph3: "Foto de los voluntarios", ph5: "Foto de una salida",
+    ph1: "Foto de la fiesta anual", ph2: "Foto de un taller", ph3: "Foto de los voluntarios", ph4: "Foto de una reunión", ph5: "Foto de una salida",
     docsTitle: "Cuentas claras", docsLead: "Documentos al alcance de socios, administraciones y ciudadanía.",
-    d1: "Estatutos", d2: "Junta directiva", d3: "Memoria anual", d4: "Cuentas anuales", d5: "Subvenciones recibidas", dUpd: "Actualizada",
+    d1: "Estatutos", d2: "Junta directiva", d3: "Memoria anual", d4: "Cuentas anuales", d5: "Subvenciones recibidas", dUpd: "Actualizada", d4d: "Ingresos, gastos y cuotas del año, al alcance de todos los socios.", pdfEx: "PDF de ejemplo", docYear: "Ejercicio {any}",
     contactTitle: "Ven a vernos",
     cAddrT: "Dirección", cAddr: "Calle del Ejemplo, 1, 08850 Gavà",
     cHoursT: "Horario de atención", cHours: "Martes y jueves, de 18 a 20 h",
@@ -739,12 +767,13 @@ function render() {
   document.getElementById("carnetLabel").textContent = sub(L.cardLabel);
 
   const today = addDays(0), y = today.getFullYear();
-  document.getElementById("cardYear").textContent = y;
+  
   document.getElementById("cardDate").textContent = fmt(today, { day: "2-digit", month: "2-digit", year: "numeric" });
   const q = ["q1", "q2", "q3", "q4"].map(id => document.getElementById(id));
   q.forEach((b, i) => { b.textContent = y + i; });
   q[0].dataset.paid = L.paid;
   document.getElementById("year").textContent = y;
+  document.getElementById("docYear").textContent = L.docYear.replace("{any}", y - 1);
   document.getElementById("now").textContent = L.today.replace("{data}", fmt(today, { weekday: "long", day: "numeric", month: "long" }));
 
   const t = document.getElementById("tickets"); t.innerHTML = "";
@@ -771,7 +800,7 @@ function render() {
   const dates = [addDays(-4), addDays(-15), addDays(-31)];
   const f = document.getElementById("nFeat");
   f.querySelector(".big").textContent = dates[0].getDate();
-  f.querySelector("time").textContent = fmt(dates[0], { day: "numeric", month: "long", year: "numeric" });
+  f.querySelector("time").textContent = fmt(dates[0], { month: "long", year: "numeric" });
   f.querySelector("time").setAttribute("datetime", dates[0].toISOString().slice(0, 10));
   f.querySelector("h3").textContent = L.news[0][0];
   f.querySelector("p").textContent = L.news[0][1];
